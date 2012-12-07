@@ -44,9 +44,13 @@ module.exports = function(grunt) {
     uglify: {},
     mocha: {
       index: [ 'test/runner/index.html' ]
+      // Could also do this to have one suite per runner file
+      // (which might be the issue with Squire):
+      // index: [ 'test/runner/*.html' ]
     }
   });
 
+  /* This is a useful stub to keep around:  Can be used to mock AJAX in addition to templates */
   grunt.registerTask('fixtures', 'Build template fixture', function() {
     var obj = {};
 
