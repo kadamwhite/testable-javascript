@@ -1,3 +1,4 @@
+/*jshint newcap: false*/
 /**
  * Unit tests for the SearchResults module
  */
@@ -12,9 +13,6 @@ define([
     setup(function() {
       ul = $('<ul><li class="no-results"></li></ul>');
       sr = SearchResults( ul );
-    });
-
-    teardown(function() {
     });
 
     test( 'Constructor', function() {

@@ -1,3 +1,4 @@
+/*jshint newcap: false*/
 /**
  * Unit tests for the Like Box module
  */
@@ -6,14 +7,11 @@ define([
   'jquery'
 ], function( LikeBox, $ ) {
   suite( 'LikeBox Module', function() {
-    var lb;
+    var ul, lb;
 
     setup(function() {
       ul = $('<ul><li class="no-results"></li></ul>');
       lb = LikeBox( ul );
-    });
-
-    teardown(function() {
     });
 
     test( 'constructor', function() {

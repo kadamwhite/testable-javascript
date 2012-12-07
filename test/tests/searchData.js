@@ -1,14 +1,9 @@
+/*jshint newcap: false*/
 /**
  * Unit tests for the SearchData module
  */
 define([ 'searchData' ], function( SearchData ) {
   suite( 'SearchData Module', function() {
-
-    setup(function() {
-    });
-
-    teardown(function() {
-    });
 
     test( 'constructor', function() {
       var sd = SearchData();

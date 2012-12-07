@@ -1,3 +1,4 @@
+/*jshint newcap: false*/
 /**
  * Unit tests for the Search Form module
  */
@@ -24,10 +25,6 @@ define([
       // It also may be that if you have a big chunk of HTML that you can't easily
       // externalize or mock the HTML, then you might not have things broken down
       // sufficiently
-    });
-
-    teardown(function() {
-      // Teardown
     });
 
     test( 'Constructor', function() {
