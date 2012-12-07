@@ -31,7 +31,8 @@ module.exports = function(grunt) {
       },
       globals: {
         define: true,
-        require: true
+        require: true,
+        sinon: true
       }
     },
     uglify: {},
