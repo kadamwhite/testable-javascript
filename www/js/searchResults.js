@@ -28,7 +28,7 @@ define([
     var html = _.template( tmpl, { people: results } );
     // We should probably pre-compile this, but we would want to do that
     // back in tmpl.js: Refactoring possibility
-    this.el.html = html;
+    this.el.html( html );
   };
 
   // Receive an array of results
