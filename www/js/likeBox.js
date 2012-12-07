@@ -10,5 +10,10 @@ define([ 'jquery' ], function( $ ) {
     this.el = $( el );
   };
 
+  LikeBox.prototype.add = function( name ) {
+    this.el.find( '.no-results' ).remove();
+    this.el.append( '<li>' + name + '</li>' );
+  };
+
   return LikeBox;
 });
