@@ -1,11 +1,7 @@
-// We're now piling up dependencies here
-// Eventually we can remove the underscore dependency, since it'll only be used
-// in other loaded modules which then in turn require _ when needed
-//
-// We might eventually also move the function that we pass to document.ready
+// We could eventually  move the function that we pass to document.ready
 // into its own module; it would then require util, searchForm and Data and
 // we could only include that one searchFormSetup (e.g.) module.
-// tmpl would in turn only be needed by the views
+// jQuery is needed for $(document).ready() itself.
 define([
   'jquery',
   'searchForm',
@@ -16,10 +12,7 @@ define([
 
   $(function() {
 
-    // Can remove since nobody else needs to know about it now
-    //var resultsList = $( '#results' );
-    // Can remove since nobody else needs to know about it now
-    // var liked = $( '#liked' );
+    // TODO: Add pending functionality by implementing form locking in searchForm
     var pending = false;
 
     var searchForm = new SearchForm( $('#searchForm') );
