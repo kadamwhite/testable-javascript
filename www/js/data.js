@@ -39,6 +39,11 @@ define([
       // We could also create a new deferred and resolve it with empty data:
       var dfd = $.Deferred();
       dfd.resolve( [] );
+      // Turns out there are security implications to passing around empty
+      // arrays in server responses, so it's best to mimic the response
+      //
+      // Moreover, your server is either (a) probably already written, or
+      // (b) out of your control, so using JS to normalize is pretty common
       return dfd.promise();
     }
 
@@ -46,7 +51,9 @@ define([
       data : { q: query },
       dataType : 'json'
     }).pipe( function( resp ) {
-
+      // Actually want to return results property:
+      // Manipulate the response before anybody else gets it
+      return resp.results;
     });
   };
 

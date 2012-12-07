@@ -73,6 +73,9 @@ define([ 'data' ], function( SearchData ) {
         requests[0].respond(
           200,
           { 'Content-type': 'text/json' },
+          // Our server will be passing back an array of people, not numbers, but
+          // all we need to write this test is a comparable data set: Simple is best,
+          // so numbers it is
           JSON.stringify({ results: [1, 2, 3] })
         );
 
