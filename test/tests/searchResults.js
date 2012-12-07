@@ -4,9 +4,8 @@
 define([
   'squire',
   'jquery',
-  'fixtures/searchData',
   'fixtures/templates'
-], function( Squire, $, data ) {
+], function( Squire, $, data, templates ) {
   // How to behave when you need to fake behavior
   var injector = new Squire();
 
@@ -18,10 +17,12 @@ define([
       var dfd = $.Deferred();
       return dfd.promise();
     },
-    purgeResults: function() {
-    }
-  })
-  .require([ 'searchResults' ], function( SearchResults ) {
+    purgeResults: function() {}
+  }).require([
+    'jquery',
+    'searchResults',
+    'fixtures/searchData'
+  ], function( $, SearchResults, data ) {
     suite( 'SearchResults Module', function() {
       var ul;
 

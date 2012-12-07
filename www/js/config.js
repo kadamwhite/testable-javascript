@@ -2,6 +2,7 @@
   var isTest = window.location.href.match('/test/');
 
   require.config({
+    urlArgs : 'bust=' +  ( new Date() ).getTime(),
     deps: [ isTest ? '../../test/config' : 'main' ],
     paths: {
       jquery: '../lib/jquery/jquery',
