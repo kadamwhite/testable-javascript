@@ -17,6 +17,8 @@ define([ 'tmpl' ], function( tmpl ) {
         xhr.onCreate = function( req ) {
           requests.push( req );
         };
+        // Purge cache to clean slate before each test
+        tmpl.purgeCache();
       });
 
       teardown(function() {
@@ -33,18 +35,27 @@ define([ 'tmpl' ], function( tmpl ) {
         // Don't need a template cache clearing function in our application,
         // so (though it is not best practice) we can just use the request
         // from the first test to know we've already loaded it once.
-        tmpl.purgeCache();
         tmpl.get( 'foo.tmpl' );
         tmpl.get( 'foo.tmpl' );
         assert.equal( requests.length, 1, 'only makes one request' );
       });
       // We want to make sure we can call "then" on the response
       test( 'return value is a promise', function() {
-        assert.fail();
+        var req = tmpl.get( 'foo.tmpl' );
+        assert.isFunction( req.then, 'return has then method' )
       });
       // We want to make sure that it doesn't manipulate the response, just passes it through
       test( 'server response is passed through', function() {
-        assert.fail();
+        var req = tmpl.get( 'foo.tmpl' );
+        var xhr = requests[0];
+        var spy = sinon.spy();
+
+        xhr.respond( 200, { 'Content-type': 'text/html' }, 'fake response' );
+
+        req.then( spy );
+
+        assert( spy.called );
+        assert.equal( spy.args[0][0], 'fake response', 'response is not modified' );
       });
     });
   });
