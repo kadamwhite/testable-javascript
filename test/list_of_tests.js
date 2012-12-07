@@ -3,5 +3,6 @@ define(function() {
     'tests/tmpl',
     'tests/searchForm',
     'tests/searchData',
+    'tests/searchResults'
   ];
 });
