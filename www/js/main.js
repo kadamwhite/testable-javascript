@@ -1,3 +1,4 @@
+// "Let's pretend the author of this code felt compelled to use RequireJS for some reason"
 define([
   'jquery',
   'underscore'
@@ -6,6 +7,8 @@ define([
 
   function loadTemplate(name) {
     if ( !tmplCache[ name ] ) {
+      // Return a promise, cache it so we don't need to repeat the retrieval
+      // Promises new in jQuery > 1.5
       tmplCache[ name ] = $.get( '/templates/' + name );
     }
     return tmplCache[ name ];
