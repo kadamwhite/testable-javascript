@@ -21,16 +21,12 @@ define([ 'util' ], function( util ) {
 
       teardown(function() {
         xhr.restore();
-      })
-      // We want to test that we make the initial request to the right URL
-      //   Could make one request to ensure it's to the right URL,
-      //   another to ensure we made the request at all
-      test( 'first request hits the server', function() {
+      });
+
+      test( 'first request is made and hits the correct URL', function() {
         util.loadTemplate( 'foo.tmpl' );
         assert.equal( requests.length, 1, 'makes server request' );
-      });
-      test( 'request is to correct url', function() {
-        assert.fail();
+        assert.equal( requests[0].url, '/templates/foo.tmpl', 'url is correct' );
       });
       // We want to test that we don't make a second request when we ask for the same template again
       test( 'caching', function() {
