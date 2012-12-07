@@ -1,6 +1,7 @@
 define(function() {
   return [
     'tests/tmpl',
-    'tests/searchForm'
+    'tests/searchForm',
+    'tests/data'
   ];
 });
