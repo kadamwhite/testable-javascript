@@ -10,19 +10,22 @@ define([
   'jquery',
   'searchForm',
   'searchData',
-  'searchResults'
-], function( $, SearchForm, SearchData, SearchResults ) {
+  'searchResults',
+  'likeBox'
+], function( $, SearchForm, SearchData, SearchResults, LikeBox ) {
 
   $(function() {
 
     // Can remove since nobody else needs to know about it now
     //var resultsList = $( '#results' );
-    var liked = $( '#liked' );
+    // Can remove since nobody else needs to know about it now
+    // var liked = $( '#liked' );
     var pending = false;
 
     var searchForm = new SearchForm( $('#searchForm') );
     var searchData = new SearchData();
     var searchResults = new SearchResults( '#results' );
+    var likeBox = new LikeBox( '#liked' );
 
     searchForm.on( 'search', function( event ) {
       if( pending ) { return; }
@@ -40,8 +43,7 @@ define([
 
     searchResults.on( 'like', function( evt ) {
       var name = evt.detail;
-      liked.find( '.no-results' ).remove();
-      $( '<li>', { text: name } ).appendTo( liked );
+      likeBox.add( name );
     });
 
   });
