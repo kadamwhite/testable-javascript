@@ -48,10 +48,10 @@ define([
 
       sr.setResults( data );
       sr.on( 'like', spy );
-      ul.find( 'li' ).find().find('.like.btn').simulate('click');
+      ul.find( 'li' ).first().find('.like.btn').click();
 
-      assert( spy.called );
-      assert.equal( spy.args[0][0].detail, data[0].name );
+      assert( spy.called, 'event handler called' );
+      assert.equal( spy.args[0][0].detail, data[0].name, 'event handler received' );
     });
 
     suite( 'Searching State', function() {
