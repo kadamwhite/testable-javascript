@@ -1,5 +1,10 @@
 /**
  * Implementation of Utility module
  */
-define([ 'util' ], function( util ) {
+define([ 'jquery' ], function( $ ) {
+  return {
+    loadTemplate: function( name ) {
+      return $.get();
+    }
+  }
 });
