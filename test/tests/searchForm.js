@@ -34,6 +34,7 @@ define([
       var sf = SearchForm( formElement );
       assert( sf, 'Constructor returns the module' );
       assert( sf instanceof SearchForm, 'Constructor works without new' );
+      assert( sf._form.length, 'initialization parameter is passed in' );
     });
 
     // If I submit with text in the field, I expect for an event to get triggered
