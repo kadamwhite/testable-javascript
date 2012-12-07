@@ -3,16 +3,25 @@ define([
   'jquery',
   'underscore',
   'tmpl',
-  'searchForm'
-], function( $, _, templates, SearchForm ) {
+  'searchForm',
+  'data'
+], function( $, _, templates, SearchForm, SearchData ) {
 
   $(function() {
 
     var resultsList = $( '#results' );
     var liked = $( '#liked' );
     var pending = false;
-
+    var sd = new SearchData();
+    var renderResponse = function( data ) {
+      templates.get('people-detailed.tmpl').then(function(t) {
+        var tmpl = _.template( t );
+        resultsList.html( tmpl({ people : data }) );
+        pending = false;
+      });
+    };
     var searchForm = new SearchForm( $('#searchForm') );
+
     searchForm.on( 'search', function( event ) {
       if( pending ) {
         return;
@@ -21,17 +30,7 @@ define([
 
       pending = true;
 
-      $.ajax( '/data/search.json', {
-        data : { q: query },
-        dataType : 'json',
-        success : function( data ) {
-          templates.get('people-detailed.tmpl').then(function(t) {
-            var tmpl = _.template( t );
-            resultsList.html( tmpl({ people : data.results }) );
-            pending = false;
-          });
-        }
-      });
+      sd.fetch( query ).then( renderResponse );
 
       $('<li>', {
         'class' : 'pending',
