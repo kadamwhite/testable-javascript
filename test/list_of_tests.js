@@ -1,8 +1,8 @@
 define(function() {
   return [
-    /*'tests/tmpl',
+    'tests/tmpl',
     'tests/searchForm',
-    'tests/searchData',*/
+    'tests/searchData',
     'tests/searchResults'
   ];
 });

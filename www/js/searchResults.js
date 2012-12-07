@@ -16,6 +16,21 @@ define([
     return this;
   }
 
+  SearchResults.prototype.setResults = function( results ) {
+    templates.get( 'people-detailed.tmpl' )
+      // _.bind can also bake in that 'results' argument as the first
+      // argument of the bound function: The template will then be the
+      // second argument
+      .then( _.bind( this._populate, this, results ) );
+  };
+
+  SearchResults.prototype._populate = function( results, tmpl ) {
+    var html = _.template( tmpl, { people: results } );
+    // We should probably pre-compile this, but we would want to do that
+    // back in tmpl.js: Refactoring possibility
+    this.el.html = html;
+  };
+
   // Receive an array of results
   // Display them
   // When there's a search, set searching state
