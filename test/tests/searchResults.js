@@ -30,12 +30,35 @@ define([
     });
 
     test( 'Should display received results', function() {
-      //
+      var sr = SearchResults( ul );
+      sr.setResults( data );
+
+      // Make sure the "no results" text has been removed
+      assert.equal( ul.find('.no-results').length, 0 );
+      // Doesn't just check that there's the right number, but also (implicitly) that
+      // the appropriate .results class is present on the rendered list items
+      assert.equal( ul.find('li.result').length, data.length );
     });
+
+    // RM: We *could* go in and test for e.g.
+    // * Does first person's name end up in <li> #1?
+    // * Does each person have a company?
+    // * etc
+    // At some point we end up testing "did Underscore's templates work"
+    // Presentational stuff like that can probably be left to an integration test
+    // Otherwise you have to change a *lot* whenever markup changes
+    // assert( ul.html().match( data[0].name ) ); // "This is kinda lame"
+    // Slightly better perhaps? (Pete's suggestion):
+    //   assert.equal(
+    //     ul.find('li.result').first().attr('data-name'),
+    //     data[0].name
+    //   );
 
     test( 'Should announce likes' );
 
-    suite( 'Searching State', function(){
+    suite( 'Searching State', function() {
+      test( 'Searching state should be set when search is begun');
+      test( 'Searching state should be removed when search is finished');
     });
   });
 });
