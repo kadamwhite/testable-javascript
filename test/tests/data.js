@@ -41,7 +41,8 @@ define([ 'data' ], function( SearchData ) {
 
       test( 'Request returns a promise', function() {
         var sd = SearchData();
-        sd.fetch( 'cat' );
+        var req = sd.fetch( 'cat' );
+
         assert.isFunction( req.then, 'return has then method' );
       });
 
