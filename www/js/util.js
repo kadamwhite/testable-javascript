@@ -4,7 +4,7 @@
 define([ 'jquery' ], function( $ ) {
   return {
     loadTemplate: function( name ) {
-      return $.get();
+      return $.get( '/templates/' + name );
     }
   }
 });
