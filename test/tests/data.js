@@ -55,6 +55,16 @@ define([ 'data' ], function( SearchData ) {
         assert.equal( requests.length, 0 );
       });
 
+      test( 'Not providing a query returns empty array', function() {
+        var sd = SearchData();
+        var req = sd.fetch();
+        var spy = sinon.spy();
+
+        req.then( spy );
+
+        assert.deepEqual( spy.args[0][0], [] );
+      });
+
       test( 'Request returns contents of results property of the response', function() {
         var sd = SearchData();
         var req = sd.fetch( 'cat' );
