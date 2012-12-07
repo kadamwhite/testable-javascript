@@ -39,21 +39,12 @@ define([
       // Doesn't just check that there's the right number, but also (implicitly) that
       // the appropriate .results class is present on the rendered list items
       assert.equal( ul.find('li.result').length, data.length );
+      // Check to see whether an arbitrary data point matches b/w rendered HTML & data
+      assert.equal(
+        ul.find('li.result').first().attr('data-name'),
+        data[0].name
+      );
     });
-
-    // RM: We *could* go in and test for e.g.
-    // * Does first person's name end up in <li> #1?
-    // * Does each person have a company?
-    // * etc
-    // At some point we end up testing "did Underscore's templates work"
-    // Presentational stuff like that can probably be left to an integration test
-    // Otherwise you have to change a *lot* whenever markup changes
-    // assert( ul.html().match( data[0].name ) ); // "This is kinda lame"
-    // Slightly better perhaps? (Pete's suggestion):
-    //   assert.equal(
-    //     ul.find('li.result').first().attr('data-name'),
-    //     data[0].name
-    //   );
 
     test( 'Should announce likes' );
 
