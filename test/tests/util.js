@@ -26,7 +26,8 @@ define([ 'util' ], function( util ) {
       //   Could make one request to ensure it's to the right URL,
       //   another to ensure we made the request at all
       test( 'first request hits the server', function() {
-        assert.fail();
+        util.loadTemplate( 'foo.tmpl' );
+        assert.equal( requests.length, 1, 'makes server request' );
       });
       test( 'request is to correct url', function() {
         assert.fail();
