@@ -32,7 +32,13 @@ module.exports = function(grunt) {
       globals: {
         define: true,
         require: true,
-        sinon: true
+        sinon: true,
+        // Register Chai API commands
+        suite: true,
+        test: true,
+        assert: true,
+        setup: true,
+        teardown: true
       }
     },
     uglify: {},

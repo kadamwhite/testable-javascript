@@ -42,7 +42,7 @@ define([ 'tmpl' ], function( tmpl ) {
       // We want to make sure we can call "then" on the response
       test( 'return value is a promise', function() {
         var req = tmpl.get( 'foo.tmpl' );
-        assert.isFunction( req.then, 'return has then method' )
+        assert.isFunction( req.then, 'return has then method' );
       });
       // We want to make sure that it doesn't manipulate the response, just passes it through
       test( 'server response is passed through', function() {

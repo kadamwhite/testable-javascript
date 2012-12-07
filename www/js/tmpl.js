@@ -16,5 +16,5 @@ define([ 'jquery' ], function( $ ) {
     purgeCache: function() {
       tmplCache = {};
     }
-  }
+  };
 });
