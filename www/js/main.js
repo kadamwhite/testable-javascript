@@ -2,8 +2,9 @@
 define([
   'jquery',
   'underscore',
-  'tmpl'
-], function( $, _, templates ) {
+  'tmpl',
+  'searchForm'
+], function( $, _, templates, SearchForm ) {
 
   $(function() {
 
@@ -11,15 +12,12 @@ define([
     var liked = $( '#liked' );
     var pending = false;
 
-    $( '#searchForm' ).on( 'submit', function( e ) {
-      e.preventDefault();
-
-      if ( pending ) { return; }
-
-      var form = $( this );
-      var query = $.trim( form.find( 'input[name="q"]' ).val() );
-
-      if ( !query ) { return; }
+    var searchForm = new SearchForm( $('#searchForm') );
+    searchForm.on( 'search', function( event ) {
+      if( pending ) {
+        return;
+      }
+      var query = event.detail;
 
       pending = true;
 
