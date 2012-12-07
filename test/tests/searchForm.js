@@ -3,8 +3,9 @@
  */
 define([
   'searchForm',
+  'jquery',
   'jquery.simulate'
-], function( SearchForm ) {
+], function( SearchForm, $ ) {
   suite( 'Search Form', function() {
     var formElement;
 
