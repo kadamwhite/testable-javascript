@@ -34,6 +34,14 @@ define([
   };
 
   SearchData.prototype.fetch = function( query ) {
+    if( !query ) {
+      // Since not specified what should happen here, we could just 'return;'
+      // We could also create a new deferred and resolve it with empty data:
+      var dfd = $.Deferred();
+      dfd.resolve( [] );
+      return dfd.promise();
+    }
+
     return $.ajax( this.settings.url, {
       data : { q: query },
       dataType : 'json'
