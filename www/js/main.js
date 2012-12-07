@@ -1,18 +1,9 @@
 // "Let's pretend the author of this code felt compelled to use RequireJS for some reason"
 define([
   'jquery',
-  'underscore'
-], function( $, _ ) {
-  var tmplCache = {};
-
-  function loadTemplate(name) {
-    if ( !tmplCache[ name ] ) {
-      // Return a promise, cache it so we don't need to repeat the retrieval
-      // Promises new in jQuery > 1.5
-      tmplCache[ name ] = $.get( '/templates/' + name );
-    }
-    return tmplCache[ name ];
-  }
+  'underscore',
+  'tmpl'
+], function( $, _, templates ) {
 
   $(function() {
 
@@ -36,7 +27,7 @@ define([
         data : { q: query },
         dataType : 'json',
         success : function( data ) {
-          loadTemplate('people-detailed.tmpl').then(function(t) {
+          templates.get('people-detailed.tmpl').then(function(t) {
             var tmpl = _.template( t );
             resultsList.html( tmpl({ people : data.results }) );
             pending = false;
