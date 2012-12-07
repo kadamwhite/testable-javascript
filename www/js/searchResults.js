@@ -31,6 +31,10 @@ define([
     this.el.html( html );
   };
 
+  SearchResults.prototype.pending = function() {
+
+  };
+
   // Receive an array of results
   // Display them
   // When there's a search, set searching state
