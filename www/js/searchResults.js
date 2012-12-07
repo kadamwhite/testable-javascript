@@ -3,12 +3,15 @@
  */
 define([
   'jquery',
-  'underscore'
-], function( $, _ ) {
-  var SearchResults = function() {
+  'underscore',
+  'tmpl'
+], function( $, _, templates ) {
+  var SearchResults = function( el ) {
     if( !(this instanceof SearchResults) ) {
-      return new SearchResults();
+      return new SearchResults( el );
     }
+
+    this.el = $( el );
 
     return this;
   }
