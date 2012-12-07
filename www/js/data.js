@@ -37,6 +37,8 @@ define([
     return $.ajax( this.settings.url, {
       data : { q: query },
       dataType : 'json'
+    }).pipe( function( resp ) {
+
     });
   };
 

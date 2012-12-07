@@ -17,6 +17,8 @@ define([ 'data' ], function( SearchData ) {
     });
 
     suite( 'Request', function() {
+
+      // Again, this is probably snippet-worthy
       var xhr, requests;
 
       setup(function() {
@@ -33,10 +35,10 @@ define([ 'data' ], function( SearchData ) {
 
       test( 'Request is made and hits the correct URL', function() {
         var sd = SearchData();
-        sd.fetch();
+        sd.fetch( 'cat' );
 
         assert.equal( requests.length, 1, 'makes server request' );
-        assert.equal( requests[0].url, '/data/search.json', 'url is correct' );
+        assert.equal( requests[0].url, '/data/search.json?q=cat', 'url is correct' );
       });
 
       test( 'Request returns a promise', function() {
@@ -44,6 +46,13 @@ define([ 'data' ], function( SearchData ) {
         var req = sd.fetch( 'cat' );
 
         assert.isFunction( req.then, 'return has then method' );
+      });
+
+      test( 'Don\'t make a request if there is no query', function() {
+        var sd = SearchData();
+        var req = sd.fetch();
+
+        assert.equal( requests.length, 0 );
       });
 
       test( 'Request returns contents of results property of the response', function() {
