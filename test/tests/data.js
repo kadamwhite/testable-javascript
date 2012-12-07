@@ -47,7 +47,19 @@ define([ 'data' ], function( SearchData ) {
       });
 
       test( 'Request returns contents of results property of the response', function() {
-        assert.fail();
+        var sd = SearchData();
+        var req = sd.fetch( 'cat' );
+        var spy = sinon.spy();
+
+        requests[0].respond(
+          200,
+          { 'Content-type': 'text/json' },
+          JSON.stringify({ results: [1, 2, 3] })
+        );
+
+        req.then( spy );
+
+        assert.deepEqual( spy.args[0][0], [1, 2, 3], 'Correct property of the response returned' );
       });
     });
   });
