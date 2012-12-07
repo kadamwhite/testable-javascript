@@ -43,19 +43,35 @@ define([
       );
     });
 
-    test( 'Should announce likes' );
+    test( 'Should announce likes', function() {
+      var spy = sinon.spy();
+
+      sr.setResults( data );
+      sr.on( 'like', spy );
+      ul.find( 'li' ).find().find('.like.btn').simulate('click');
+
+      assert( spy.called );
+      assert.equal( spy.args[0][0].detail, data[0].name );
+    });
 
     suite( 'Searching State', function() {
       test( 'Searching state should be set when search is begun', function() {
-        sr.setResults( data );
         sr.pending();
 
-        assert.equal( ul.find('li.result').length, 0, 'results items are cleared' );
         assert.equal( ul.find('li.searching').length, 1, 'searching text is shown' );
         // Redundant -- you could eliminate the results items are cleared test and only have the
         // last two, b/c if there's only 1 and ('.searching').length === 1, the rest are gone
         assert.equal( ul.find('li').length, 1, 'searching <li> is the only one that is shown' );
       });
+
+      test( 'Previous results are cleared on new search', function() {
+        // Set results to ensure that if there ARE results, they get cleared
+        sr.setResults( data );
+        sr.pending();
+
+        assert.equal( ul.find('li.result').length, 0, 'results items are cleared' );
+      });
+
       test( 'Searching state should be removed when search is finished');
     });
   });
