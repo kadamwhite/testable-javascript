@@ -33,6 +33,7 @@ define([ 'data' ], function( SearchData ) {
 
       test( 'Request is made and hits the correct URL', function() {
         var sd = SearchData();
+        sd.fetch();
 
         assert.equal( requests.length, 1, 'makes server request' );
         assert.equal( requests[0].url, '/data/search.json', 'url is correct' );
