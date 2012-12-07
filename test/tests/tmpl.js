@@ -1,12 +1,12 @@
 /**
- * Unit tests for the Util module
+ * Unit tests for the Template utility module
  */
-define([ 'util' ], function( util ) {
-  suite( 'Util', function() {
+define([ 'tmpl' ], function( tmpl ) {
+  suite( 'Template Utility', function() {
 
-    // RM: "I'm envisioning that util thing is going to be an object with a
+    // RM: "I'm envisioning that tmpl thing is going to be an object with a
     // loadTemplate method on it"
-    suite( 'loadTemplate', function() {
+    suite( '.get( template )', function() {
       var xhr, requests;
 
       setup(function() {
@@ -24,7 +24,7 @@ define([ 'util' ], function( util ) {
       });
 
       test( 'first request is made and hits the correct URL', function() {
-        util.loadTemplate( 'foo.tmpl' );
+        tmpl.get( 'foo.tmpl' );
         assert.equal( requests.length, 1, 'makes server request' );
         assert.equal( requests[0].url, '/templates/foo.tmpl', 'url is correct' );
       });
@@ -33,9 +33,9 @@ define([ 'util' ], function( util ) {
         // Don't need a template cache clearing function in our application,
         // so (though it is not best practice) we can just use the request
         // from the first test to know we've already loaded it once.
-        util.clearTemplateCache();
-        util.loadTemplate( 'foo.tmpl' );
-        util.loadTemplate( 'foo.tmpl' );
+        tmpl.purgeCache();
+        tmpl.get( 'foo.tmpl' );
+        tmpl.get( 'foo.tmpl' );
         assert.equal( requests.length, 1, 'only makes one request' );
       });
       // We want to make sure we can call "then" on the response

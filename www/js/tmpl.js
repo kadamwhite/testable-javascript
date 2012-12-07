@@ -1,5 +1,5 @@
 /**
- * Implementation of Utility module
+ * Implementation of Template Utility module
  */
 define([ 'jquery' ], function( $ ) {
   // We could also make tmplCache a _cache prop on the
@@ -7,10 +7,10 @@ define([ 'jquery' ], function( $ ) {
   var tmplCache = {};
 
   return {
-    loadTemplate: function( name ) {
+    get: function( name ) {
       return $.get( '/templates/' + name );
     },
-    clearTemplateCache: function() {
+    purgeCache: function() {
       tmplCache = {};
     }
   }
