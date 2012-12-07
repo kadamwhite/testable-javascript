@@ -51,7 +51,10 @@ define([
         sr.pending();
 
         assert.equal( ul.find('li.result').length, 0, 'results items are cleared' );
-        assert( ul.html().match('Searching &hellip;'), 'searching text is displayed' );
+        assert.equal( ul.find('li.searching').length, 1, 'searching text is shown' );
+        // Redundant -- you could eliminate the results items are cleared test and only have the
+        // last two, b/c if there's only 1 and ('.searching').length === 1, the rest are gone
+        assert.equal( ul.find('li').length, 1, 'searching <li> is the only one that is shown' );
       });
       test( 'Searching state should be removed when search is finished');
     });

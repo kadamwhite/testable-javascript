@@ -32,7 +32,7 @@ define([
   };
 
   SearchResults.prototype.pending = function() {
-
+    this.el.html( '<li class="searching">Searching &hellip;</li>' );
   };
 
   // Receive an array of results
