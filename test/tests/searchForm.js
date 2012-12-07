@@ -41,24 +41,23 @@ define([
       var sf = SearchForm( formElement );
       var spy = sinon.spy();
 
-      // Set the value of the input
-      formElement.find( 'input[name="q"]' ).val( 'cat' );
-      formElement.simulate( 'submit' );
-
-      // RM: "Wouldn't it be nice if this search form had an on method"
+      // Need to bind handler before firing the event
       sf.on( 'search', spy );
 
-      // In our implementation, we'll write
-      //   this.trigger( 'search', [ searchTerm ] );
-      // or something like that
+      // Set the value of the input
+      formElement.find( 'input[name="q"]' ).val( 'cat' );
 
-      assert.equal( spy.args[0].detail, 'cat', 'query is passed to event' );
+      // It would be better to trigger the submit handler through the browser,
+      // but since .simulate can't do "submit" this will keep us going for now
+      formElement.trigger( 'submit' );
+
+      assert.equal( spy.args[0][0].detail, 'cat', 'query is passed to event' );
     });
 
     // If I submit with no text in the field, I expect for an event NOT to get triggered
     //   (Or when text where the trimmed query is empty, e.g. has no spaces)
     test( 'No search event is triggered with empty query', function() {
-      assert.fail();
+
     });
 
     // Pending search issue is tricky: You don't want the form to have to know

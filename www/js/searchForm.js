@@ -11,7 +11,8 @@ define([
       return new SearchForm();
     }
 
-    $( form ).on( 'submit', _.bind( this._handleSubmit, this ) );
+    this._form = $( form );
+    this._form.on( 'submit', _.bind( this._handleSubmit, this ) );
 
     return this;
   };
@@ -27,13 +28,13 @@ define([
 
     // Because we've written this trigger method but haven't defined it yet,
     // we're going to pull in RSVP
-
-    RSVP.EventTarget.mixin( SearchForm.prototype );
-    // We have now endowed SearchForm with .trigger and .on
-    // You can write this yourself in a basic working version in 20-30
-    // lines of code; if you want to .off stuff and handle memory better
-    // it gets slightly more complicated
   };
+
+  RSVP.EventTarget.mixin( SearchForm.prototype );
+  // We have now endowed SearchForm with .trigger and .on
+  // You can write this yourself in a basic working version in 20-30
+  // lines of code; if you want to .off stuff and handle memory better
+  // it gets slightly more complicated
 
   return SearchForm;
 });
