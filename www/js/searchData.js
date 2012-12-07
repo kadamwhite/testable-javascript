@@ -1,5 +1,5 @@
 /**
- * Implementation of Data module
+ * Implementation of SearchData module
  */
 define([
   'jquery',

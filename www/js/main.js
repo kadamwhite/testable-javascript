@@ -11,7 +11,7 @@ define([
   'underscore',
   'tmpl',
   'searchForm',
-  'data'
+  'searchData'
 ], function( $, _, templates, SearchForm, SearchData ) {
 
   $(function() {

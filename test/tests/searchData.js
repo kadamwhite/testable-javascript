@@ -1,7 +1,7 @@
 /**
  * Unit tests for the SearchData module
  */
-define([ 'data' ], function( SearchData ) {
+define([ 'searchData' ], function( SearchData ) {
   suite( 'SearchData Module', function() {
 
     setup(function() {
