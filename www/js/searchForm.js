@@ -8,7 +8,7 @@ define([
 ], function( $, _, RSVP ) {
   var SearchForm = function( form ) {
     if( !(this instanceof SearchForm ) ) {
-      return new SearchForm();
+      return new SearchForm( form );
     }
 
     this._form = $( form );
@@ -23,9 +23,11 @@ define([
     evt.preventDefault();
 
     // We should store the form as something
-    var query = this._form.find('[name="q"]').val();
+    var query = $.trim( this._form.find('[name="q"]').val() );
+    if( !query ) {
+      return;
+    }
     this.trigger( 'search', query );
-
     // Because we've written this trigger method but haven't defined it yet,
     // we're going to pull in RSVP
   };
