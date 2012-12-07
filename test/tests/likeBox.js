@@ -40,5 +40,13 @@ define([
       assert.equal( ul.find('li').first().html(), testName, 'name is rendered' );
     });
 
+    test( 'Don\'t add same name twice', function() {
+      lb.add( 'KAdam White' );
+      lb.add( 'Emily Garfield' );
+      lb.add( 'KAdam White' );
+
+      assert.equal( ul.find('li').length, 2, 'duplicate names ommitted' );
+    });
+
   });
 });
