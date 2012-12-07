@@ -10,8 +10,13 @@ define([ 'jquery' ], function( $ ) {
     return this;
   };
 
+  SearchData.prototype.url = '/data/search.json';
+
   SearchData.prototype.fetch = function( query ) {
-    return $.get( '/data/search.json', 'json' );
+    return $.ajax( this.url, {
+      data : { q: query },
+      dataType : 'json'
+    });
   };
 
   return SearchData;

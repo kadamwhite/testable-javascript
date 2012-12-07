@@ -37,6 +37,16 @@ define([ 'data' ], function( SearchData ) {
         assert.equal( requests.length, 1, 'makes server request' );
         assert.equal( requests[0].url, '/data/search.json', 'url is correct' );
       });
+
+      test( 'Request returns a promise', function() {
+        var sd = SearchData();
+        sd.fetch( 'cat' );
+        assert.isFunction( req.then, 'return has then method' );
+      });
+
+      test( 'Request returns contents of results property of the response', function() {
+        assert.fail();
+      });
     });
   });
 });
