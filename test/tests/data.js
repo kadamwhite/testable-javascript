@@ -11,7 +11,7 @@ define([ 'data' ], function( SearchData ) {
     });
 
     test( 'constructor', function() {
-      var sd = SeachData();
+      var sd = SearchData();
       assert( sd );
       assert( sd instanceof SearchData );
     });
