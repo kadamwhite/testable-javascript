@@ -30,7 +30,13 @@ define([ 'util' ], function( util ) {
       });
       // We want to test that we don't make a second request when we ask for the same template again
       test( 'caching', function() {
-        assert.fail();
+        // Don't need a template cache clearing function in our application,
+        // so (though it is not best practice) we can just use the request
+        // from the first test to know we've already loaded it once.
+        util.clearTemplateCache();
+        util.loadTemplate( 'foo.tmpl' );
+        util.loadTemplate( 'foo.tmpl' );
+        assert.equal( requests.length, 1, 'only makes one request' );
       });
       // We want to make sure we can call "then" on the response
       test( 'return value is a promise', function() {
