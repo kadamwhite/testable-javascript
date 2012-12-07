@@ -15,11 +15,11 @@ define([
     this.el = $( el );
 
     this._bindEvents();
-  }
+  };
 
   SearchResults.prototype._bindEvents = function() {
     this.el.on( 'click', '.btn.like', _.bind( this._handleClick, this ) );
-  }
+  };
 
   SearchResults.prototype._handleClick = function( evt ) {
     // Don't need to preventDefault since no href

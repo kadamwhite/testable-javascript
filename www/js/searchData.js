@@ -23,7 +23,7 @@ define([
 
     this.defaults = {
       url: '/data/search.json'
-    }
+    };
 
     this.settings = _.extend( {}, this.defaults, this.options );
     // You'd probably want this in ALL your constructors, so you'd make

@@ -8,20 +8,21 @@
 // tmpl would in turn only be needed by the views
 define([
   'jquery',
-  'underscore',
-  'tmpl',
   'searchForm',
-  'searchData'
-], function( $, _, templates, SearchForm, SearchData ) {
+  'searchData',
+  'searchResults'
+], function( $, SearchForm, SearchData, SearchResults ) {
 
   $(function() {
 
-    var resultsList = $( '#results' );
+    // Can remove since nobody else needs to know about it now
+    //var resultsList = $( '#results' );
     var liked = $( '#liked' );
     var pending = false;
 
     var searchForm = new SearchForm( $('#searchForm') );
     var searchData = new SearchData();
+    var searchResults = new SearchResults( '#results' );
 
     searchForm.on( 'search', function( event ) {
       if( pending ) { return; }
@@ -30,23 +31,15 @@ define([
       pending = true;
 
       searchData.fetch( query ).then( function( results ) {
-        templates.get('people-detailed.tmpl').then(function(t) {
-          var tmpl = _.template( t );
-          resultsList.html( tmpl({ people : results }) );
-
-          pending = false;
-        });
+        searchResults.setResults( results );
+        pending = false;
       });
 
-      $('<li>', {
-        'class' : 'pending',
-        html : 'Searching &hellip;'
-      }).appendTo( resultsList.empty() );
+      searchResults.pending();
     });
 
-    resultsList.on( 'click', '.like', function(e) {
-      e.preventDefault();
-      var name = $( this ).closest( 'li' ).find( 'h2' ).text();
+    searchResults.on( 'like', function( evt ) {
+      var name = evt.detail;
       liked.find( '.no-results' ).remove();
       $( '<li>', { text: name } ).appendTo( liked );
     });
