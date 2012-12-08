@@ -8,12 +8,12 @@ define([
   'jquery.simulate'
 ], function( SearchForm, $ ) {
   suite( 'Search Form', function() {
-    var formElement;
+    var formElement, sf;
 
     setup(function() {
       // Bare minimum HTML needed for search form
       formElement = $('<form><input name="q"><input type="submit"></form>');
-      // To start, we'll try doing this without even injecting this into the DOM
+      sf = SearchForm( formElement );
 
       // Question: What do you do when something's pre-rendered, or when you have
       // more complex HTML involved in your view?
@@ -28,7 +28,6 @@ define([
     });
 
     test( 'Constructor', function() {
-      var sf = SearchForm( formElement );
       assert( sf, 'Constructor returns the module' );
       assert( sf instanceof SearchForm, 'Constructor works without new' );
       assert( sf._form.length, 'initialization parameter is passed in' );
@@ -36,7 +35,6 @@ define([
 
     // If I submit with text in the field, I expect for an event to get triggered
     test( 'Search event is triggered with query', function() {
-      var sf = SearchForm( formElement );
       var spy = sinon.spy();
 
       // Need to bind handler before firing the event
@@ -55,7 +53,13 @@ define([
     // If I submit with no text in the field, I expect for an event NOT to get triggered
     //   (Or when text where the trimmed query is empty, e.g. has no spaces)
     test( 'No search event is triggered with empty query', function() {
+      var spy = sinon.spy();
+      sf.on( 'search', spy );
 
+      formElement.find( 'input[name="q"]' ).val( '   ' );
+      formElement.trigger( 'submit' );
+
+      assert( !spy.called, 'whitespace properly trimmed' );
     });
 
     // Pending search issue is tricky: You don't want the form to have to know
@@ -64,15 +68,46 @@ define([
     // a technique where you lock the search form and then unlock it later to
     // work around this problem.
     suite( 'Locking', function() {
-      /*test( 'Form is locked', function() {
-        assert.fail();
+      test( 'Form can be locked', function() {
+        var spy = sinon.spy();
+        sf.on( 'search', spy );
+
+        sf.lock();
+
+        formElement.find( 'input[name="q"]' ).val( 'cat' );
+        formElement.trigger( 'submit' );
+
+        // This test is a little redundant to the re-submission test
+        assert( !spy.called, 'Form submission disabled while locked' );
       });
       test( 'Form can be unlocked', function() {
-        assert.fail();
+        var spy = sinon.spy();
+        sf.on( 'search', spy );
+
+        // First search
+        formElement.find( 'input[name="q"]' ).val( 'cat' );
+        formElement.trigger( 'submit' );
+        formElement.trigger( 'submit' );
+
+        sf.unlock();
+
+        // Second search
+        formElement.find( 'input[name="q"]' ).val( 'chi' );
+        formElement.trigger( 'submit' );
+
+        assert( spy.calledTwice, 'Form submission re-enabled on unlock' );
+
       });
       test( 'Locking prevents search', function() {
-        assert.fail();
-      });*/
+        var spy = sinon.spy();
+        sf.on( 'search', spy );
+
+        formElement.find( 'input[name="q"]' ).val( 'cat' );
+        formElement.trigger( 'submit' );
+        formElement.trigger( 'submit' );
+
+        assert( spy.calledOnce, 'Form auto-locks, preventing resubmission' );
+      });
     });
   });
 });

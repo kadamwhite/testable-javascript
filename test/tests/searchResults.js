@@ -70,7 +70,12 @@ define([
         assert.equal( ul.find('li.result').length, 0, 'results items are cleared' );
       });
 
-      test( 'Searching state should be removed when search is finished');
+      test( 'Searching state should be removed when search is finished', function() {
+        sr.pending();
+        sr.setResults( data );
+        assert.equal( ul.find('li.searching').length, 0, 'setResults clears searching state' );
+      });
+
     });
   });
 });
