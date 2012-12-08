@@ -80,6 +80,7 @@ define([
         // This test is a little redundant to the re-submission test
         assert( !spy.called, 'Form submission disabled while locked' );
       });
+
       test( 'Form can be unlocked', function() {
         var spy = sinon.spy();
         sf.on( 'search', spy );
@@ -87,7 +88,12 @@ define([
         // First search
         formElement.find( 'input[name="q"]' ).val( 'cat' );
         formElement.trigger( 'submit' );
+
+        sf.lock();
+
         formElement.trigger( 'submit' );
+
+        assert( spy.calledOnce, 'Form submission disabled on lock' );
 
         sf.unlock();
 
@@ -96,18 +102,7 @@ define([
         formElement.trigger( 'submit' );
 
         assert( spy.calledTwice, 'Form submission re-enabled on unlock' );
-
       });
-      test( 'Locking prevents search', function() {
-        var spy = sinon.spy();
-        sf.on( 'search', spy );
-
-        formElement.find( 'input[name="q"]' ).val( 'cat' );
-        formElement.trigger( 'submit' );
-        formElement.trigger( 'submit' );
-
-        assert( spy.calledOnce, 'Form auto-locks, preventing resubmission' );
-      });
-    });
+    }); // Locking suite
   });
 });
